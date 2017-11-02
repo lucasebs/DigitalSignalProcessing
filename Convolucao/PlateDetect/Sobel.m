@@ -1,3 +1,13 @@
+% Code by: Sung Kim - August 20, 2013
+
+% We can first read in the source image using the imread ()
+% function . Since we are only operating on grayscale images ,
+% we will take the gray transformation using rgb2gray () .
+% Finally , we want to define our Sobel matrices , and use
+% the built in convolution function conv () to convolve the
+% source image with the Sobel kernels . For the sake of code
+% reuse with multiple images , we will incorporate these
+% operations into a function :
 
 function Sobel ( im )
 % Read in the image and convert to gray
