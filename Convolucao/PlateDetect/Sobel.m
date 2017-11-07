@@ -12,7 +12,7 @@
 % reuse with multiple images , we will incorporate these
 % operations into a function :
 
-function Sobel (im)
+function M = Sobel (im)
 % Load image package to use rgb2gray function
 pkg load image
 
@@ -41,7 +41,6 @@ k_h = [1 2 1; 0 0 0; -1 -2 -1];
 M1 = conv2 ( double ( grayscale ) , double ( k_v ) ) ;
 M2 = conv2 ( double ( grayscale ) , double ( k_h ) ) ;
 
-
 % Display the horizontal edges and vertical edges separately
 %figure (3) ;
 %imshow ( abs ( M1 ) , []) ;
@@ -54,13 +53,11 @@ M2 = conv2 ( double ( grayscale ) , double ( k_h ) ) ;
 % Display the normalized vertical and horizontal edges combined
 %figure (5) ;
 
-
-
 M = ( M1 .^2+ M2 .^2) .^0.5;
 
-imshow (M, []) ;
-title('Vertical and Horizontal Edges');
-
+%figure (5) ;
+%imshow (M, []);
+%title('Vertical and Horizontal Edges');
 
 
 end

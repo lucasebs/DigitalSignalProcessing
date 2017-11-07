@@ -12,28 +12,33 @@
 % imnoise () , which we will use to add various types of
 % noise to the test image .
 
-function Gaussian ( im , size , sigma , noiseType )
+function MF = Gaussian ( im , size , sigma , noiseType )
 % Display the original and gray image
 original = imread ( im ) ;
 grayscale = rgb2gray ( original ) ;
-figure (1) ;
-imshow ( original ) ;
-figure (2) ;
-imshow ( grayscale ) ;
+
+
+%figure (1) ;
+%imshow ( original ) ;
+%figure (2) ;
+%imshow ( grayscale ) ;
 
 % Add noise to the grayscale image and display
 noisyImage = imnoise ( grayscale , noiseType ) ;
-figure (4) ;
-imshow ( noisyImage ) ;
+%figure (4) ;
+%imshow ( noisyImage ) ;
 
 % Generate Gaussian matrix
-h = fspecial ( ’ gaussian ’ , size , sigma ) ;
+h = fspecial ( 'gaussian' , size , sigma ) ;
 
 % Convolve the noised image with the Gaussian kernel
 M = conv2 ( double ( grayscale ) , double ( h ) ) ;
 
+
+MF = (( M .^2) .^0.5);
+
 % Display the result
-figure (3) ;
-imshow (( M .^2) .^0.5 , []) ;
+%figure (3) ;
+% imshow (MF , []) ;
 
 end
