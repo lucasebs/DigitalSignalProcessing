@@ -6,4 +6,4 @@ close all
 
 %Call the Detect () function with the image path as the argument .
 
-Detect ('Plates/plate1.jpeg') ;
+Detect ('Plates/plate2.jpg') ;

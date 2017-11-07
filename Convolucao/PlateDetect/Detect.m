@@ -8,6 +8,7 @@ original = imread(im);
 
 % -------------- Grayscale -------------- %
 gray = rgb2gray (original);
+gray = imadjust(gray);
 figure (1);
 imshow(gray, []);
 title('Grayscale');
@@ -40,38 +41,32 @@ figure (4) ;
 imshow (MS , []) ;
 title('Sobel');
 
-% ----------------------------------------------------------
-% -------------- Smoothing -------------- %
-mask = [ 0 0 0 0 0;
-         0 1 1 1 0;
-         0 1 1 1 0;
-         0 1 1 1 0;
-         0 0 0 0 0];
-[x, y] = size(MS);
-Smooth = conv2(double(MS), double(mask));
+
+% -------------- Sobel over Gaussian -------------- %
+k_v = [-1 0 1; -2 0 2; -1 0 1];
+k_h = [1 2 1; 0 0 0; -1 -2 -1];
+
+M1_2 = conv2 ( double ( MG ) , double ( k_v ) ) ;
+M2_2 = conv2 ( double ( MG ) , double ( k_h ) ) ;
+MS2 = ( M1_2 .^2+ M2_2 .^2) .^0.5;
+
 figure (5) ;
-imshow (MS , []) ;
-title('Smooth');
+imshow (MS2 , []) ;
+title('Sobel over Gaussian');
 
-% -------------- Max -------------- %
-Label = bwlabel(Smooth, 8);
-mx = max(max(Label))
 
-% -------------- Zeros -------------- %
-[r, c] = find(Label==1);
-rc = [r c];
-[sx sz] = size(rc);
-n1 = zeros(x, y);
+% -------------- Fill -------------- %
+se = strel('square',2);
+Close = imclose(MS2,se);
+Dilate = imdilate(Close, se);
+Fill = imfill(Dilate, 'holes');
 
-% -------------- n1 -------------- %
-for i=1:sx
-  x1=rc(i,1);
-  y1=rc(i,2);
-  n1(x1,y1)=255
-end
+figure (6) ;
+imshow (Fill , []) ;
+title('Fill');
 
-figure(6)
-imshow(n1, []);
+% ----------------------------------------------------------
+
 
 end
 
