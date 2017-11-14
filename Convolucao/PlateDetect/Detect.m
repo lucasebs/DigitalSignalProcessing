@@ -54,7 +54,6 @@ figure (5) ;
 imshow (MS2 , []) ;
 title('Sobel over Gaussian');
 
-
 % -------------- Fill -------------- %
 se = strel('square',2);
 Close = imclose(MS2,se);
@@ -65,8 +64,16 @@ figure (6) ;
 imshow (Fill , []) ;
 title('Fill');
 
-% ----------------------------------------------------------
 
+% -------------- Inverse Colors -------------- %
+
+inv = uint8(255) - MS;
+
+figure (7) ;
+imshow (inv , []) ;
+title('Inverse');
+
+% ------------------------------------------------
 
 end
 
